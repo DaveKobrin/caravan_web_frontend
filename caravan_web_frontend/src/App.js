@@ -18,6 +18,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <img crossOrigin="use-credentials" src="http://localhost:3000/images/1_of_Clubs.png" />
     </div>
   );
 }
