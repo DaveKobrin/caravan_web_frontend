@@ -13,6 +13,8 @@ import CaravanTwoDisplay from '../Components/PlayField/Caravans/CaravanTwoDispla
 import CaravanOneDisplay from '../Components/PlayField/Caravans/CaravanOneDisplay'
 import PlayerContainer from './Player.cntnr'
 
+const tempCards = ['jack', 'ace', 'one', 'two', 'five']
+
 const CaravansContainer = (props) => {
   const [caravanOne, setCaravanOne] = useState(['From CaravansContainer Sibling'])
   const [caravanTwo, setCaravanTwo] = useState([])
@@ -38,7 +40,7 @@ const CaravansContainer = (props) => {
   return (
     <>
       <PlayerContainer test={caravanOne[0]} onClick={handleClick} />
-      <CaravanOneDisplay value={caravanOne} onClick={handleClick} />
+      <CaravanOneDisplay value={caravanOne[0]} onClick={handleClick} />
       <CaravanTwoDisplay value={caravanTwo} onClick={handleClick} />
       <CaravanThreeDisplay value={caravanThree} onClick={handleClick} />
       {/*<CaravanFourDisplay />

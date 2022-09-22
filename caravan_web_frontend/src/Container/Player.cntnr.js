@@ -7,12 +7,19 @@ import PlayerDeckDisplay from '../Components/PlayField/Player/PlayerDeckDisplay.
 const PlayerContainer = (props) => {
   const [playerHand, setPlayerHand] = useState([])
   const [deck, setDeck] = useState([])
+  const [allCards, setAllCards] = useState([])
 
   useEffect(
     () => {
       //do the stuff
     },
     [playerHand] //only runs when playerHand changes in some way(player removes a card))
+  )
+  useEffect(
+    () => {
+      //api call to populate the users deck database array for play
+    },
+    [] //the [] causes to only run one time on load
   )
 
   const [selectedCard, setSelectedCard] = useState(null)

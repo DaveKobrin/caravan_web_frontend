@@ -9,15 +9,15 @@ function App() {
       <CaravansContainer />
       <PlayerContainer />
 
-      
+      {/*       
         <input type={'submit'} onClick={()=>{
           fetch('http://localhost:3000/cards/createSeed', {
             method: 'POST',
             body: JSON.stringify({test:'test'}),
             headers: { 'Content-Type': 'application/json'}
           });
-        }} />
-      
+        }} /> 
+        Commented out as precaution cuz sometimes I R Stoopit*/}
     </div>
   )
 }

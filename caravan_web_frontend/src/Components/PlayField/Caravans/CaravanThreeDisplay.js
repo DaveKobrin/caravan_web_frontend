@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 
-export default class CaravanThreeDisplay extends Component {
-  render() {
-    return <h1>CaravanThreeState</h1>
-  }
+const CaravanThreeDisplay = (props) => {
+  return (
+    <>
+      <h1 onClick={props.onClick}>{props.value}</h1>
+    </>
+  )
 }
+export default CaravanThreeDisplay
