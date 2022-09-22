@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import PlayerHandState from '../Components/PlayField/Player/PlayerHandState.js'
 import PlayerHandDisplay from '../Components/PlayField/Player/PlayerHandDisplay.js'
 
-import PlayerDeckState from '../Components/PlayField/Player/PlayerDeckState.js'
 import PlayerDeckDisplay from '../Components/PlayField/Player/PlayerDeckDisplay.js'
 
 const PlayerContainer = (props) => {
@@ -25,10 +23,8 @@ const PlayerContainer = (props) => {
   return (
     <div>
       <h1>{props.test}</h1>
-      <PlayerHandState playerHand={playerHand} />
       <PlayerHandDisplay playerHand={playerHand} />
       <PlayerDeckDisplay deck={deck} />
-      <PlayerDeckState deck={deck} />
     </div>
   )
 }
