@@ -29,13 +29,15 @@ const CaravansContainer = (props) => {
   //   //
   // }
 
-  const handleClick = () => {
+  const handleClick = ({ target }) => {
     console.log('click')
+    console.log(target)
+    //Can track target caravan from sibling
   }
 
   return (
     <>
-      <PlayerContainer test={caravanOne[0]} />
+      <PlayerContainer test={caravanOne[0]} onClick={handleClick} />
       <CaravanOneDisplay value={caravanOne} onClick={handleClick} />
       <CaravanTwoDisplay value={caravanTwo} onClick={handleClick} />
       <CaravanThreeDisplay value={caravanThree} onClick={handleClick} />
