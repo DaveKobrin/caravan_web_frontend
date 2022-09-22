@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-export default class CaravanOneDisplay extends Component {
-  render() {
-    return <h1>CaravanOneState</h1>
-  }
+const CaravanOneDisplay = (props) => {
+  return <>{'maps through props.value adds in the onclick'}</>
 }
+export default CaravanOneDisplay

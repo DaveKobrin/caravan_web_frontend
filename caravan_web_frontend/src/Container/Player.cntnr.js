@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import PlayerHandState from '../Components/PlayField/Player/PlayerHandState.js'
 import PlayerHandDisplay from '../Components/PlayField/Player/PlayerHandDisplay.js'
 
-import PlayerDeckState from '../Components/PlayField/Player/PlayerDeckState.js'
 import PlayerDeckDisplay from '../Components/PlayField/Player/PlayerDeckDisplay.js'
 
 const PlayerContainer = (props) => {
@@ -16,19 +14,22 @@ const PlayerContainer = (props) => {
     },
     [playerHand] //only runs when playerHand changes in some way(player removes a card))
   )
+
   const [selectedCard, setSelectedCard] = useState(null)
-  const handleClick = ({ target }) => {
+  const handleHandClick = ({ target }) => {
     //setSelectedCard(highlights selected card)
     //clicks on caravan to place highlighted card(requires player hand card to be chosen)
   }
 
+  const handleDeckClick = ({ target }) => {
+    //sets deck, pops the first card of the array then add's it to the players hand
+    //requires players hand to have 4 cards
+  }
   return (
     <div>
-      <h1>{props.test}</h1>
-      <PlayerHandState playerHand={playerHand} />
-      <PlayerHandDisplay playerHand={playerHand} />
-      <PlayerDeckDisplay deck={deck} />
-      <PlayerDeckState deck={deck} />
+      <h1 onClick={props.onClick}>{props.test}</h1>
+      <PlayerHandDisplay playerHand={playerHand} onClick={handleHandClick} classForCards={selectedCard} />
+      <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} />
     </div>
   )
 }
