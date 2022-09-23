@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <CaravansContainer />
-      <PlayerContainer />
+      {/* <PlayerContainer /> */}
 
       {/*       
         <input type={'submit'} onClick={()=>{
@@ -18,6 +18,16 @@ function App() {
           });
         }} /> 
         Commented out as precaution cuz sometimes I R Stoopit*/}
+      <input
+        type={'submit'}
+        onClick={() => {
+          const fetched = fetch('http://localhost:3000/cards/getCards', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          })
+          console.log(fetched)
+        }}
+      />
     </div>
   )
 }
