@@ -32,9 +32,8 @@ const PlayerContainer = (props) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setAllCards([[data.found.slice(0, 99)], [data.found.slice(100, 199)], [data.found.slice(200, 299)], [data.found.slice(300, 324)]]);
+        setAllCards();
       });
-    console.log('all cards', allCards);
   }, []);
 
   const [selectedCard, setSelectedCard] = useState(null);
