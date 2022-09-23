@@ -20,12 +20,13 @@ function App() {
         Commented out as precaution cuz sometimes I R Stoopit*/}
       <input
         type={'submit'}
-        onClick={() => {
-          const fetched = fetch('http://localhost:3000/cards/getCards', {
+        onClick={async () => {
+          const fetched = await fetch('http://localhost:3000/cards/getCards', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           })
-          console.log(fetched)
+          const json = fetched.json()
+          console.log(json)
         }}
       />
     </div>
