@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react';
 
+const style = {
+  height: '280px',
+  width: '140px',
+};
 const PlayerDeckDisplay = (props) => {
-  const deck = props.deck
+  const deck = props.deck;
 
   return (
     <div className='imageContainer'>
@@ -9,14 +13,14 @@ const PlayerDeckDisplay = (props) => {
         <h1>DECK</h1>
         {deck.map((x, i) => {
           return (
-            <li key={i} className={'this is temporary p, utnil images'} value={x} onClick={props.onClick}>
+            <li key={i} style={style} value={x} onClick={props.onClick}>
               {x}
             </li>
-          )
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default PlayerDeckDisplay
+export default PlayerDeckDisplay;
