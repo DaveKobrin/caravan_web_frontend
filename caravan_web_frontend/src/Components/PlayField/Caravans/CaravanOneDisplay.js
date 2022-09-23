@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
 const CaravanOneDisplay = (props) => {
-  return <>{'maps through props.value adds in the onclick'}</>
+  return (
+    <>
+      <h1 onClick={props.onClick}>{props.value}</h1>
+    </>
+  )
 }
 export default CaravanOneDisplay
