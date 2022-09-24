@@ -15,7 +15,6 @@ class PlayerContainer extends Component {
       deck: [],
       allCards: [],
       pickedCard: '',
-      deckBuildingIndex: 0,
       playerInfo: {
         //temporary data until user get route
         _id: '',
@@ -28,6 +27,8 @@ class PlayerContainer extends Component {
         ownedCards: ["array of id's"],
         playerDeck: [' '],
       },
+      showIndex: 0,
+      showDeck: [],
     };
   }
 
@@ -40,11 +41,22 @@ class PlayerContainer extends Component {
       .then((data) => {
         this.setState({
           allCards: data.foundData,
+          showIndex: data.foundData.length / 2,
         });
+        setTimeout(() => {
+          console.log(this.state.showIndex - 5, 'be22');
+          const tempDeck = [];
+          for (let i = this.state.showIndex - 5; i <= this.state.showIndex + 5; i++) {
+            tempDeck.push(data.foundData[i]);
+          }
+          setTimeout(() => {
+            this.setState({
+              showDeck: tempDeck,
+            });
+            console.log(this.state.showDeck, this.state.showIndex, 'showDeck');
+          }, 250);
+        }, 100);
       });
-    this.setState({
-      deckBuildingIndex: this.state.playerInfo.playerDeck.length / 2,
-    });
   }
 
   handleHandClick = ({ target }) => {
@@ -96,8 +108,7 @@ class PlayerContainer extends Component {
     //   headers: { 'Content-Type': 'application/json' },
     // });
   };
-  handleLeftButton = () => {};
-  handleRightButton = () => {};
+
   render() {
     return (
       <div>
@@ -106,7 +117,7 @@ class PlayerContainer extends Component {
         {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} /> : ''}
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} showDeck={this.state.showDeck} /> : ''}
       </div>
     );
   }
