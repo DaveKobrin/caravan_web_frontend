@@ -19,7 +19,7 @@ const PlayerDeckBuilding = (props) => {
       )}
       <ul className='deckBuild-bottomRow'>
         {props.showDeck.map((card, index) => {
-          const imgSrc = 'http://localhost:3000/images/' + card.face;
+          const imgSrc = !props.deck.includes(card) ? 'http://localhost:3000/images/' + card.face : 'http://localhost:3000/images/' + card.back + '.png';
           return (
             <li
               key={'bottom' + index}
