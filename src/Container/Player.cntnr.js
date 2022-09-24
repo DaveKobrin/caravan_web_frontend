@@ -60,7 +60,7 @@ class PlayerContainer extends Component {
   componentDidUpdate() {
     setTimeout(() => {
       const tempDeck = [];
-      for (let i = this.state.showIndex - 5; i <= this.state.showIndex + 5; i++) {
+      for (let i = this.state.showIndex; i <= this.state.showIndex + 10; i++) {
         tempDeck.push(this.state.allCards[i]);
       }
       setTimeout(() => {
@@ -146,9 +146,9 @@ class PlayerContainer extends Component {
         {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
-        <input type='submit' value='<' onClick={this.handleIndexingButton} />
+        <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
         {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} showDeck={this.state.showDeck} /> : ''}
-        <input type='submit' value='>' onClick={this.handleIndexingButton} />
+        <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
       </div>
     );
   }
