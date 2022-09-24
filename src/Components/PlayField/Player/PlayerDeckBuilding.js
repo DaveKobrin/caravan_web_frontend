@@ -8,28 +8,6 @@ const PlayerDeckBuilding = (props) => {
   const [showIndex, setShowIndex] = useState(0);
   const [showDeck, setShowDeck] = useState([]);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/cards/getCards', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setAllCards(data.foundData);
-      });
-  }, []);
-
-  useEffect(() => {
-    setShowIndex(props.allCards.length / 2);
-    console.log(showIndex);
-    const tempDeck = [];
-    for (let i = showIndex - 5; i <= showIndex + 5; i++) {
-      tempDeck.push(props.allCards[i]);
-    }
-    setShowDeck(tempDeck);
-    console.log(showDeck, 'showDeck');
-  }, []);
-
   return (
     <div className='deckBuildingContainer'>
       <h1>Build</h1>
