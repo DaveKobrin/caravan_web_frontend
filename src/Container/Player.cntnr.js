@@ -12,9 +12,8 @@ class PlayerContainer extends Component {
     super(props);
     this.state = {
       playerHand: [],
-      deck: [],
+      deck: [''],
       allCards: [],
-      pickedCard: '',
       playerInfo: {
         //temporary data until user get route
         _id: '',
@@ -25,10 +24,11 @@ class PlayerContainer extends Component {
         balance: 100,
         friends: [],
         ownedCards: ["array of id's"],
-        playerDeck: [' '],
+        playerDeck: [],
       },
       showIndex: 0,
       showDeck: [],
+      showDeckTop: [],
     };
   }
 
@@ -41,10 +41,10 @@ class PlayerContainer extends Component {
       .then((data) => {
         this.setState({
           allCards: data.foundData,
+          // deck: data.foundData,
           showIndex: data.foundData.length / 2,
         });
         setTimeout(() => {
-          console.log(this.state.showIndex - 5, 'be22');
           const tempDeck = [];
           for (let i = this.state.showIndex - 5; i <= this.state.showIndex + 5; i++) {
             tempDeck.push(data.foundData[i]);
@@ -60,13 +60,17 @@ class PlayerContainer extends Component {
   componentDidUpdate() {
     setTimeout(() => {
       const tempDeck = [];
+      const topDeck = [];
       for (let i = this.state.showIndex; i <= this.state.showIndex + 10; i++) {
         tempDeck.push(this.state.allCards[i]);
+        topDeck.push(this.state.allCards[i]);
       }
       setTimeout(() => {
         this.setState({
           showDeck: tempDeck,
+          showDeckTop: topDeck,
         });
+        // console.log(this.state.showDeckTop);
       }, 250);
     });
   }
@@ -90,35 +94,31 @@ class PlayerContainer extends Component {
 
   handleDeckBuildingClick = async (card) => {
     //save the ne deck to the user db, by _id
+    const index = this.state.allCards.indexOf(card);
+    console.log(index);
+    console.log(card, 'card');
+    const temp = this.state.deck;
+    temp[index] = card;
     const waiting = await this.setState({
-      deck: [...this.state.deck, card],
+      deck: temp,
     });
-    console.log(this.state.deck);
+    console.log(this.state.deck, 'ya');
   };
-
-  //Save deck function
 
   handleSaveDeck = () => {
     const tempArrayToSaveDeckToUserProfile = [];
     for (const i of this.state.deck) {
-      tempArrayToSaveDeckToUserProfile.push(i._id);
+      tempArrayToSaveDeckToUserProfile.push(i);
     }
 
-    this.setState((prevState) => ({
+    this.setState({
       playerInfo: {
         playerDeck: tempArrayToSaveDeckToUserProfile,
       },
-    }));
+    });
     setTimeout(() => {
-      console.log('playerDeck', this.state.playerInfo.playerDeck);
-    }, 200);
-    // fetch('http://localhost:3000/user/saveDeck', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //   Reference for searching DB
-    //   }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // });
+      console.log(this.state.playerInfo.playerDeck);
+    }, 250);
   };
 
   handleIndexingButton = ({ target }) => {
@@ -133,9 +133,7 @@ class PlayerContainer extends Component {
         showIndex: (this.state.showIndex += 1),
       });
     }
-    setTimeout(() => {
-      console.log(this.state.showIndex);
-    }, 100);
+    setTimeout(() => {}, 100);
   };
 
   render() {
@@ -147,7 +145,7 @@ class PlayerContainer extends Component {
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
         <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} showDeck={this.state.showDeck} /> : ''}
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} /> : ''}
         <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
       </div>
     );
