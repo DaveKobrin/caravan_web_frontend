@@ -84,7 +84,7 @@ class PlayerContainer extends Component {
     setTimeout(() => {
       console.log('playerDeck', this.state.playerInfo.playerDeck);
     }, 200);
-    // fetch('http://localhost:3000/user/register', {
+    // fetch('http://localhost:3000/user/saveDeck', {
     //   method: 'POST',
     //   body: JSON.stringify({
     //   Reference for searching DB

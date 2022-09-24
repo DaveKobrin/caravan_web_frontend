@@ -9,6 +9,7 @@ const PlayerDeckBuilding = (props) => {
       <h1>Build</h1>
       <ul>
         {props.allCards.map((card, index) => {
+          const imgSrc = 'http://localhost:3000/images/' + card.face;
           return (
             <li
               key={index}
@@ -18,7 +19,7 @@ const PlayerDeckBuilding = (props) => {
                 props.onClick(card);
               }}
             >
-              {card.name}
+              <img crossOrigin='use-credentials' src={imgSrc} alt={card.name} />
             </li>
           );
         })}
