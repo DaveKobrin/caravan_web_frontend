@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 // import CaravanSixDisplay from '../Components/PlayField/Caravans/CaravanSixDisplay'
 
@@ -6,18 +6,18 @@ import React, { useState, useEffect } from 'react'
 
 // import CaravanFourDisplay from '../Components/PlayField/Caravans/CaravanFourDisplay'
 
-import CaravanThreeDisplay from '../Components/PlayField/Caravans/CaravanThreeDisplay'
+import CaravanThreeDisplay from '../Components/PlayField/Caravans/CaravanThreeDisplay';
 
-import CaravanTwoDisplay from '../Components/PlayField/Caravans/CaravanTwoDisplay'
+import CaravanTwoDisplay from '../Components/PlayField/Caravans/CaravanTwoDisplay';
 
-import CaravanOneDisplay from '../Components/PlayField/Caravans/CaravanOneDisplay'
-import PlayerContainer from './Player.cntnr'
-import tempCards from '../Components/tempCards'
+import CaravanOneDisplay from '../Components/PlayField/Caravans/CaravanOneDisplay';
+import PlayerContainer from './Player.cntnr';
+import tempCards from '../Components/tempCards';
 
 const CaravansContainer = (props) => {
-  const [caravanOne, setCaravanOne] = useState(['From CaravansContainer Sibling'])
-  const [caravanTwo, setCaravanTwo] = useState(['caravan2'])
-  const [caravanThree, setCaravanThree] = useState(['caravan3'])
+  const [caravanOne, setCaravanOne] = useState(['From CaravansContainer Sibling']);
+  const [caravanTwo, setCaravanTwo] = useState(['caravan2']);
+  const [caravanThree, setCaravanThree] = useState(['caravan3']);
   // const [caravanFour, setCaravanFour] = useState([])
   // const [caravanFive, setCaravanFive] = useState([])
   // const [caravanSix, setCaravanSix] = useState([])
@@ -31,10 +31,10 @@ const CaravansContainer = (props) => {
   // }
 
   const handleClick = ({ target }) => {
-    console.log('click')
-    console.log(target)
+    console.log('click');
+    console.log(target);
     //Can track target caravan from sibling
-  }
+  };
 
   return (
     <>
@@ -46,6 +46,6 @@ const CaravansContainer = (props) => {
       <CaravanFiveDisplay />
       <CaravanSixDisplay /> */}
     </>
-  )
-}
-export default CaravansContainer
+  );
+};
+export default CaravansContainer;
