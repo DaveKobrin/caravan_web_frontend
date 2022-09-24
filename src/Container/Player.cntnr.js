@@ -25,8 +25,10 @@ class PlayerContainer extends Component {
         balance: 100,
         friends: [],
         ownedCards: ["array of id's"],
-        playerDeck: [],
+        playerDeck: [' '],
       },
+      showIndex: 0,
+      showDeck: [],
     };
   }
 
@@ -39,8 +41,34 @@ class PlayerContainer extends Component {
       .then((data) => {
         this.setState({
           allCards: data.foundData,
+          showIndex: data.foundData.length / 2,
         });
+        setTimeout(() => {
+          console.log(this.state.showIndex - 5, 'be22');
+          const tempDeck = [];
+          for (let i = this.state.showIndex - 5; i <= this.state.showIndex + 5; i++) {
+            tempDeck.push(data.foundData[i]);
+          }
+          setTimeout(() => {
+            this.setState({
+              showDeck: tempDeck,
+            });
+          }, 250);
+        }, 100);
       });
+  }
+  componentDidUpdate() {
+    setTimeout(() => {
+      const tempDeck = [];
+      for (let i = this.state.showIndex; i <= this.state.showIndex + 10; i++) {
+        tempDeck.push(this.state.allCards[i]);
+      }
+      setTimeout(() => {
+        this.setState({
+          showDeck: tempDeck,
+        });
+      }, 250);
+    });
   }
 
   handleHandClick = ({ target }) => {
@@ -61,18 +89,11 @@ class PlayerContainer extends Component {
   };
 
   handleDeckBuildingClick = async (card) => {
-    if (!this.state.deck) {
-      console.log('tlles');
-      this.setState({
-        deck: card,
-      });
-    }
-
     //save the ne deck to the user db, by _id
     const waiting = await this.setState({
       deck: [...this.state.deck, card],
     });
-    console.log(this.state.deck, 'bottomstate');
+    console.log(this.state.deck);
   };
 
   //Save deck function
@@ -89,9 +110,9 @@ class PlayerContainer extends Component {
       },
     }));
     setTimeout(() => {
-      console.log(this.state.playerInfo.playerDeck, 'playerDeck');
+      console.log('playerDeck', this.state.playerInfo.playerDeck);
     }, 200);
-    // fetch('http://localhost:3000/user/register', {
+    // fetch('http://localhost:3000/user/saveDeck', {
     //   method: 'POST',
     //   body: JSON.stringify({
     //   Reference for searching DB
@@ -99,6 +120,24 @@ class PlayerContainer extends Component {
     //   headers: { 'Content-Type': 'application/json' },
     // });
   };
+
+  handleIndexingButton = ({ target }) => {
+    const { value } = target;
+    if (value === '<') {
+      this.setState({
+        showIndex: (this.state.showIndex -= 1),
+      });
+    }
+    if (value === '>') {
+      this.setState({
+        showIndex: (this.state.showIndex += 1),
+      });
+    }
+    setTimeout(() => {
+      console.log(this.state.showIndex);
+    }, 100);
+  };
+
   render() {
     return (
       <div>
@@ -107,7 +146,9 @@ class PlayerContainer extends Component {
         {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} /> : ''}
+        <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} showDeck={this.state.showDeck} /> : ''}
+        <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
       </div>
     );
   }
