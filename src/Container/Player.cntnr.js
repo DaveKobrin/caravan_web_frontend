@@ -15,22 +15,20 @@ class PlayerContainer extends Component {
       deck: [],
       allCards: [],
       pickedCard: '',
+      playerInfo: {
+        //temporary data until user get route
+        _id: '',
+        name: 'Matt',
+        gamertag: 'exitbot',
+        email: 'matt@gmail.com',
+        password: 'something Encripted',
+        balance: 100,
+        friends: [],
+        ownedCards: ["array of id's"],
+        playerDeck: [],
+      },
     };
   }
-
-  //ill get this after building deck phase
-  // useEffect(
-  //   //Original populate player hand with 8 cards
-  //   () => {
-  //     const arrForHand = [];
-  //     for (let i = 0; i < 8; i++) {
-  //       const randomNumber = Math.floor(Math.random() * tempCards.length) + 1;
-  //       arrForHand.push(tempCards[randomNumber]);
-  //     }
-  //     setPlayerHand(arrForHand);
-  //   },
-  //   [] //only runs when playerHand changes in some way(player removes a card))
-  // );
 
   componentDidMount() {
     fetch('http://localhost:3000/cards/getCards', {
@@ -70,10 +68,36 @@ class PlayerContainer extends Component {
       });
     }
 
+    //save the ne deck to the user db, by _id
     const waiting = await this.setState({
       deck: [...this.state.deck, card],
     });
-    console.log(this.state.deck, 'bottomstae');
+    console.log(this.state.deck, 'bottomstate');
+  };
+
+  //Save deck function
+
+  handleSaveDeck = () => {
+    const tempArrayToSaveDeckToUserProfile = [];
+    for (const i of this.state.deck) {
+      tempArrayToSaveDeckToUserProfile.push(i._id);
+    }
+
+    this.setState((prevState) => ({
+      playerInfo: {
+        playerDeck: tempArrayToSaveDeckToUserProfile,
+      },
+    }));
+    setTimeout(() => {
+      console.log(this.state.playerInfo.playerDeck, 'playerDeck');
+    }, 200);
+    // fetch('http://localhost:3000/user/register', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //   Reference for searching DB
+    //   }),
+    //   headers: { 'Content-Type': 'application/json' },
+    // });
   };
   render() {
     return (
@@ -83,7 +107,7 @@ class PlayerContainer extends Component {
         {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} /> : ''}
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} /> : ''}
       </div>
     );
   }
