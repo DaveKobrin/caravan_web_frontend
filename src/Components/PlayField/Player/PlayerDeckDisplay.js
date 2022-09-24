@@ -1,22 +1,29 @@
-import React, { Component } from 'react'
+import React from 'react';
+
+const style = {
+  height: '280px',
+  width: '140px',
+};
 
 const PlayerDeckDisplay = (props) => {
-  const deck = props.deck
+  const deck = props.deck;
 
   return (
     <div className='imageContainer'>
       <ul>
         <h1>DECK</h1>
-        {deck.map((x, i) => {
+        {deck.map((card, i) => {
+          const imgSrc = 'http://localhost:3000/images/' + card.face;
           return (
-            <li key={i} className={'this is temporary p, utnil images'} value={x} onClick={props.onClick}>
-              {x}
+            <li key={i} style={style} value={card} onClick={props.onClick}>
+              {card}
+              <img crossOrigin='use-credentials' src={imgSrc} alt={card.name} />
             </li>
-          )
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default PlayerDeckDisplay
+export default PlayerDeckDisplay;
