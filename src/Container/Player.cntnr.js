@@ -15,6 +15,7 @@ class PlayerContainer extends Component {
       deck: [],
       allCards: [],
       pickedCard: '',
+      deckBuildingIndex: 0,
       playerInfo: {
         //temporary data until user get route
         _id: '',
@@ -25,7 +26,7 @@ class PlayerContainer extends Component {
         balance: 100,
         friends: [],
         ownedCards: ["array of id's"],
-        playerDeck: [],
+        playerDeck: [' '],
       },
     };
   }
@@ -41,6 +42,9 @@ class PlayerContainer extends Component {
           allCards: data.foundData,
         });
       });
+    this.setState({
+      deckBuildingIndex: this.state.playerInfo.playerDeck.length / 2,
+    });
   }
 
   handleHandClick = ({ target }) => {
@@ -92,6 +96,8 @@ class PlayerContainer extends Component {
     //   headers: { 'Content-Type': 'application/json' },
     // });
   };
+  handleLeftButton = () => {};
+  handleRightButton = () => {};
   render() {
     return (
       <div>
@@ -100,7 +106,7 @@ class PlayerContainer extends Component {
         {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} /> : ''}
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.deck} saveDeck={this.handleSaveDeck} leftButton={this.handleLeftButton} rightButton={this.handleRightButton} /> : ''}
       </div>
     );
   }
