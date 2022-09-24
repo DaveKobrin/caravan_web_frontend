@@ -61,18 +61,11 @@ class PlayerContainer extends Component {
   };
 
   handleDeckBuildingClick = async (card) => {
-    if (!this.state.deck) {
-      console.log('tlles');
-      this.setState({
-        deck: card,
-      });
-    }
-
     //save the ne deck to the user db, by _id
     const waiting = await this.setState({
       deck: [...this.state.deck, card],
     });
-    console.log(this.state.deck, 'bottomstate');
+    console.log(this.state.deck);
   };
 
   //Save deck function
@@ -89,7 +82,7 @@ class PlayerContainer extends Component {
       },
     }));
     setTimeout(() => {
-      console.log(this.state.playerInfo.playerDeck, 'playerDeck');
+      console.log('playerDeck', this.state.playerInfo.playerDeck);
     }, 200);
     // fetch('http://localhost:3000/user/register', {
     //   method: 'POST',

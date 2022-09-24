@@ -23,7 +23,7 @@ const PlayerDeckBuilding = (props) => {
           );
         })}
       </ul>
-      {props.playerDeck ? <input type='submit' value='Save Deck' onClick={props.saveDeck} /> : ''}
+      {props.playerDeck.length >= 30 ? <input type='submit' value='Save Deck' onClick={props.saveDeck} /> : ''}
     </div>
   );
 };
