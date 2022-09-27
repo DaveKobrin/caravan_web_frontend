@@ -12,7 +12,7 @@ class PlayerContainer extends Component {
     super(props);
     this.state = {
       playerHand: [],
-      deck: [''],
+      deck: [],
       allCards: [],
       playerInfo: {
         //temporary data until user get route
@@ -41,7 +41,6 @@ class PlayerContainer extends Component {
       .then((data) => {
         this.setState({
           allCards: data.foundData,
-          // deck: data.foundData,
           showIndex: data.foundData.length / 2,
         });
         setTimeout(() => {
@@ -97,6 +96,7 @@ class PlayerContainer extends Component {
     const index = this.state.allCards.indexOf(card);
     console.log(index);
     console.log(card, 'card');
+    console.log(this.state.deck);
     const temp = this.state.deck;
     temp[index] = card;
     const waiting = await this.setState({
@@ -108,7 +108,9 @@ class PlayerContainer extends Component {
   handleSaveDeck = () => {
     const tempArrayToSaveDeckToUserProfile = [];
     for (const i of this.state.deck) {
-      tempArrayToSaveDeckToUserProfile.push(i);
+      if (i) {
+        tempArrayToSaveDeckToUserProfile.push(i);
+      }
     }
 
     this.setState({
@@ -117,18 +119,28 @@ class PlayerContainer extends Component {
       },
     });
     setTimeout(() => {
-      console.log(this.state.playerInfo.playerDeck);
+      console.log(this.state.playerInfo.playerDeck, 'playerDeck');
     }, 250);
   };
 
   handleIndexingButton = ({ target }) => {
     const { value } = target;
-    if (value === '<') {
+    if (value === '<' && this.state.showIndex > 0 && this.state.showIndex < 10) {
       this.setState({
         showIndex: (this.state.showIndex -= 1),
       });
     }
-    if (value === '>') {
+    if (value === '<' && this.state.showIndex >= 10) {
+      this.setState({
+        showIndex: (this.state.showIndex -= 10),
+      });
+    }
+    if (value === '>' && this.state.showIndex <= this.state.allCards.length - 20) {
+      this.setState({
+        showIndex: (this.state.showIndex += 10),
+      });
+    }
+    if (value === '>' && this.state.showIndex <= this.state.allCards.length - 2) {
       this.setState({
         showIndex: (this.state.showIndex += 1),
       });
@@ -145,7 +157,9 @@ class PlayerContainer extends Component {
         {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
         {/* if(new player, display <deck build> else display player list) */}
         <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
+
         {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} /> : ''}
+
         <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
       </div>
     );
