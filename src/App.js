@@ -25,7 +25,7 @@ function App() {
         value='test NewUser'
         onClick={() => {
 
-          fetch('http://localhost:3000/user/register', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/register', {
             method: 'POST',
             body: JSON.stringify({
               name: 'Dave',
@@ -43,7 +43,7 @@ function App() {
       
 
         <input type={'submit'} value='test login' onClick={()=>{
-          fetch('http://localhost:3000/user/login', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/login', {
             method: 'POST',
             body: JSON.stringify({
               gamertag: 'gtag',
@@ -53,11 +53,11 @@ function App() {
           }).then((response) => response.json())
           .then((data) => {
             console.log(data);
-          });
+          }).catch((err)=>{console.log({err})});
         }} />
 
 <input type={'submit'} value='test logout' onClick={()=>{
-          fetch('http://localhost:3000/user/logout', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/logout', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }).then((response) => response.json())
@@ -67,7 +67,7 @@ function App() {
         }} />
 
         <input type={'submit'} value='test destroy' onClick={()=>{
-          fetch('http://localhost:3000/user/destroy/6330c32214772093ed83dcfb', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/destroy/6330c32214772093ed83dcfb', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
           }).then((response) => response.json())
@@ -77,7 +77,7 @@ function App() {
         }} />
 
 <input type={'submit'} value='test getDeck' onClick={()=>{
-          fetch('http://localhost:3000/user/deck/6330bd17bdf09eb088f824df', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/deck/6330bd17bdf09eb088f824df', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }).then((response) => response.json())
@@ -87,7 +87,7 @@ function App() {
         }} />
 
 <input type={'submit'} value='test addCard' onClick={()=>{
-          fetch('http://localhost:3000/user/deck/add/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/deck/add/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
             method: 'PUT',
             body: JSON.stringify({}),
             headers: { 'Content-Type': 'application/json' },
@@ -98,7 +98,7 @@ function App() {
         }} />
 
 <input type={'submit'} value='test remCard' onClick={()=>{
-          fetch('http://localhost:3000/user/deck/rem/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/deck/rem/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
             method: 'PUT',
             body: JSON.stringify({}),
             headers: { 'Content-Type': 'application/json' },
@@ -109,7 +109,7 @@ function App() {
         }} />
 
 <input type={'submit'} value='test toggleCard' onClick={()=>{
-          fetch('http://localhost:3000/user/deck/toggle/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/user/deck/toggle/6330bd17bdf09eb088f824df/632d0fa1705f594726aa8136', {
             method: 'PUT',
             body: JSON.stringify({}),
             headers: { 'Content-Type': 'application/json' },
@@ -123,7 +123,7 @@ function App() {
         type={'submit'}
         value='test Get Tops Set'
         onClick={() => {
-          fetch('http://localhost:3000/cards/getManyByPattern/set/Tops', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/cards/getManyByPattern/set/Tops', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           })
@@ -137,7 +137,7 @@ function App() {
         type={'submit'}
         value='test GetOneById'
         onClick={() => {
-          fetch('http://localhost:3000/cards/getOneById/632f6bd3bc9100de884549a5', {
+          fetch(process.env.REACT_APP_CARAVAN_API + '/cards/getOneById/632f6bd3bc9100de884549a5', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           })
