@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import CaravansContainer from './Caravans.cntnr';
 import PlayerHandDisplay from '../Components/PlayField/Player/PlayerHandDisplay.js';
@@ -158,20 +158,22 @@ class PlayerContainer extends Component {
 
   render() {
     return (
-      <div>
-        <h1 onClick={this.props.onClick}>{this.props.test}</h1>
-        {/* <CaravansContainer **send over selectedCard information** /> */}
-        {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
-        {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
-        {/* if(new player, display <deck build> else display player list) */}
+      <Router>
+        <main>
+          <h1 onClick={this.props.onClick}>{this.props.test}</h1>
+          {/* <CaravansContainer **send over selectedCard information** /> */}
+          {this.state.playerHand ? <PlayerHandDisplay playerHand={this.state.playerHand} onClick={this.handleHandClick} /> : ''}
+          {/* <PlayerDeckDisplay deck={deck} onClick={handleDeckClick} /> */}
+          {/* if(new player, display <deck build> else display player list) */}
+          <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
 
-        <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
-
-        {/* set this up to a route player can go to for building a deck i think seperate route for editing deck */}
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} onClickTop={this.handleTopDeckbuildingClick} /> : ''}
-
-        <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
-      </div>
+          {/* set this up to a route player can go to for building a deck i think seperate route for editing deck */}
+          <Routes>
+            <Route path='/build' element={<PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} onClickTop={this.handleTopDeckbuildingClick} />} />
+          </Routes>
+          <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
+        </main>
+      </Router>
     );
   }
 }
