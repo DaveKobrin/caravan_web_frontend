@@ -90,19 +90,26 @@ class PlayerContainer extends Component {
     //   deck.filter((idOfCardPulledFromDeck, i) => idOfCardPulledFromDeck !== target._id)
     // }
   };
+  handleTopDeckbuildingClick = async (card) => {
+    const temp = this.state.deck.filter((filter) => filter._id !== card._id);
+    this.setState({
+      deck: temp,
+    });
+  };
 
   handleDeckBuildingClick = async (card) => {
     //save the ne deck to the user db, by _id
+    if (this.state.deck.includes(card)) {
+      return null;
+    }
     const index = this.state.allCards.indexOf(card);
-    console.log(index);
-    console.log(card, 'card');
-    console.log(this.state.deck);
     const temp = this.state.deck;
     temp[index] = card;
+
     const waiting = await this.setState({
-      deck: temp,
+      deck: temp.filter((real) => real),
     });
-    console.log(this.state.deck, 'ya');
+    console.log(this.state.deck, 'bot');
   };
 
   handleSaveDeck = () => {
@@ -118,9 +125,6 @@ class PlayerContainer extends Component {
         playerDeck: tempArrayToSaveDeckToUserProfile,
       },
     });
-    setTimeout(() => {
-      console.log(this.state.playerInfo.playerDeck, 'playerDeck');
-    }, 250);
   };
 
   handleIndexingButton = ({ target }) => {
@@ -158,7 +162,7 @@ class PlayerContainer extends Component {
         {/* if(new player, display <deck build> else display player list) */}
         <input type='submit' value='<' onClick={this.handleIndexingButton} hidden={!this.state.showIndex} />
 
-        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} /> : ''}
+        {this.state.allCards ? <PlayerDeckBuilding allCards={this.state.allCards} onClick={this.handleDeckBuildingClick} playerDeck={this.state.showDeckTop} saveDeck={this.handleSaveDeck} showDeck={this.state.showDeck} deck={this.state.deck} onClickTop={this.handleTopDeckbuildingClick} /> : ''}
 
         <input type='submit' value='>' onClick={this.handleIndexingButton} hidden={this.state.showIndex === this.state.allCards.length - 11} />
       </div>
