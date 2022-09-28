@@ -6,7 +6,7 @@ const PlayerDeckBuilding = (props) => {
       {props.playerDeck ? (
         <ul className='deckBuild-topRow'>
           {props.playerDeck.map((card, index) => {
-            const imgSrc = props.deck.includes(card) ? 'http://localhost:3000/images/' + card.face : 'http://localhost:3000/images/' + card.back + '.png';
+            const imgSrc = props.deck.includes(card) ? process.env.REACT_APP_CARAVAN_API + '/images/' + card.face : process.env.REACT_APP_CARAVAN_API + '/images/' + card.back + '.png';
             return (
               <li
                 key={'top' + index}
@@ -26,7 +26,7 @@ const PlayerDeckBuilding = (props) => {
       )}
       <ul className='deckBuild-bottomRow'>
         {props.showDeck.map((card, index) => {
-          const imgSrc = !props.deck.includes(card) ? 'http://localhost:3000/images/' + card.face : 'http://localhost:3000/images/' + card.back + '.png';
+          const imgSrc = !props.deck.includes(card) ? process.env.REACT_APP_CARAVAN_API + '/images/' + card.face : process.env.REACT_APP_CARAVAN_API + '/images/' + card.back + '.png';
           return (
             <li
               key={'bottom' + index}
