@@ -8,8 +8,15 @@ const PlayerDeckBuilding = (props) => {
           {props.playerDeck.map((card, index) => {
             const imgSrc = props.deck.includes(card) ? 'http://localhost:3000/images/' + card.face : 'http://localhost:3000/images/' + card.back + '.png';
             return (
-              <li key={'top' + index} value={card} name={card.name}>
-                <img crossOrigin='use-credentials' src={imgSrc} alt={card.name} />
+              <li
+                key={'top' + index}
+                value={card}
+                name={card.name}
+                onClick={() => {
+                  props.onClickTop(card);
+                }}
+              >
+                <img crossOrigin='use-credentials' src={imgSrc} a lt={card.name} />
               </li>
             );
           })}
@@ -34,7 +41,7 @@ const PlayerDeckBuilding = (props) => {
           );
         })}
       </ul>
-      {props.playerDeck.length >= 30 ? <input type='submit' value='Save Deck' onClick={props.saveDeck} /> : ''}
+      {props.deck.length >= 30 ? <input type='submit' value='Save Deck' onClick={props.saveDeck} /> : ''}
     </div>
   );
 };
