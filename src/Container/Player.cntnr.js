@@ -33,7 +33,7 @@ class PlayerContainer extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/cards/getCards', {
+    fetch(process.env.REACT_APP_CARAVAN_API + '/cards/getCards', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
