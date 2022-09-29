@@ -33,7 +33,7 @@ class PlayerContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(process.env.REACT_APP_CARAVAN_API + '/cards/getCards', {
+    fetch(process.env.REACT_APP_CARAVAN_API + '/cards/getManyByPattern/set/Standard', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
